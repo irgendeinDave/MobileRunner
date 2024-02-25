@@ -9,7 +9,7 @@ public class DeathBehavior : MonoBehaviour, IUnityAdsInitializationListener, IUn
 
     private GameObject collisionObject;
 
-    private bool requestAdAllowed = true;
+    [SerializeField] private int AllowedAdRequests = 3;
 
     private void Start()
     {
@@ -40,7 +40,7 @@ public class DeathBehavior : MonoBehaviour, IUnityAdsInitializationListener, IUn
 
         //open popup
         popup.SetActive(true);
-        if (requestAdAllowed)
+        if (AllowedAdRequests > 0)
             findChildOfPopup("Watch Ad Button").SetActive(true);
         else
             findChildOfPopup("Watch Ad Button").SetActive(false);
@@ -57,7 +57,7 @@ public class DeathBehavior : MonoBehaviour, IUnityAdsInitializationListener, IUn
     {
         if (!Advertisement.isInitialized)
             return;
-        if (requestAdAllowed)
+        if (AllowedAdRequests > 0)
             Advertisement.Show("Rewarded_Android", this);
         else this.replayButton();
 
@@ -96,7 +96,7 @@ public class DeathBehavior : MonoBehaviour, IUnityAdsInitializationListener, IUn
     {
         if (placementId.Equals("Rewarded_Android") && UnityAdsShowCompletionState.COMPLETED.Equals(showCompletionState))
         {
-            requestAdAllowed = false;
+            AllowedAdRequests--;
 
             popup.SetActive(false);
             Destroy(collisionObject);
