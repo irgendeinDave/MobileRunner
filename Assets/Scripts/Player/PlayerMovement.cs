@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //old system
         float newY = transform.position.y;
-        movementSpeed = startingMovementSpeed + (transform.position.x / 100);
+        movementSpeed = startingMovementSpeed + (transform.position.x / 100) * Time.fixedDeltaTime;
 
         if (Input.touchCount > 0)
         {
