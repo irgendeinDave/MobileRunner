@@ -18,6 +18,9 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] private float maxObstacleDistance;
     [SerializeField] private float obstacleToPlayerDistance;
     [SerializeField] private float startingDistance;
+
+    [SerializeField] private GameObject coin;
+    [SerializeField] private float coinChance;
     #endregion
 
     private bool firstObstacle = true;
@@ -41,12 +44,17 @@ public class ObstacleSpawner : MonoBehaviour
 
         //randomize rotation
         Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));  
-
-        GameObject newObstacle = Instantiate(obstacle, new Vector2(xSpawnPos, spawnHeight), rotation);
+        if (Random.Range(0f, 1f) < coinChance)
+        {
+            Instantiate(coin, new Vector2(xSpawnPos, spawnHeight), Quaternion.identity);
+        }
+        else
+        {
+            GameObject newObstacle = Instantiate(obstacle, new Vector2(xSpawnPos, spawnHeight), rotation);
+            
+            //apply random texture
+            newObstacle.GetComponent<SpriteRenderer>().sprite = obstacleTextures[Random.Range(0, obstacleTextures.Length)];
+        }
         furthestRightPosition = xSpawnPos;
-
-        //apply random texture
-        newObstacle.GetComponent<SpriteRenderer>().sprite = obstacleTextures[Random.Range(0, obstacleTextures.Length)];
-
     }
 }
