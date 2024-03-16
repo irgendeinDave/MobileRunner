@@ -46,6 +46,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Don't die when coin is collected
+        if (collision.gameObject.CompareTag("Coin"))
+            return;
+        
         DeathBehavior db = gameObject.GetComponent<DeathBehavior>();
         db.die(collision.gameObject);
     }

@@ -673,6 +673,8 @@ MonoBehaviour:
   maxObstacleDistance: 25
   obstacleToPlayerDistance: 15
   startingDistance: 5
+  coin: {fileID: 4473554466150687194, guid: 16f18ab49fbbc87bdb301117eb82704c, type: 3}
+  coinChance: 0.2
 --- !u!50 &950931075
 Rigidbody2D:
   serializedVersion: 4
