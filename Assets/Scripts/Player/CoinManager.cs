@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 /// <summary>
 /// controls coin count in UI and takes care of the total coins balance
@@ -9,7 +10,7 @@ public class CoinManager : MonoBehaviour
     [SerializeField] private TMP_Text coinCounterText;
     
     [SerializeField] private Rigidbody2D rb;
-    private int coinsCollected = 0;
+    private static int coinsCollected = 0;
     private void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log("HIT");
@@ -25,8 +26,12 @@ public class CoinManager : MonoBehaviour
         coinCounterText.text = coinsCollected.ToString();
     }
 
-    private static void AddCoinsToTotal()
+    public static void AddCoinsToTotal()
     {
-        
+        int score = GameObject.FindWithTag("Player").GetComponent<ScoreManager>().getScore();
+        Debug.Log("Score: " + score);
+        int current = PlayerPrefs.GetInt("coins", 0);
+        PlayerPrefs.SetInt("coins", current + Mathf.FloorToInt(.002f * coinsCollected * score * score)); // add (score²)/500 * collected coins in the round to the balance
+        Debug.Log("Coins: " + PlayerPrefs.GetInt("coins"));
     }
 }

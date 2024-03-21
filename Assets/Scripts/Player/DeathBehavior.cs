@@ -50,6 +50,7 @@ public class DeathBehavior : MonoBehaviour, IUnityAdsInitializationListener, IUn
     public void replayButton()
     {
         Time.timeScale = 1;
+        CoinManager.AddCoinsToTotal();
         SceneManager.LoadScene(0);
     }
 

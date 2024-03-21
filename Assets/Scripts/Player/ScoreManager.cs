@@ -9,7 +9,6 @@ public class ScoreManager : MonoBehaviour
 
     [SerializeField] private TMP_Text scoreUIText;
 
-
     private void Update()
     {
         score = Mathf.RoundToInt(transform.position.x / 2);
@@ -40,4 +39,9 @@ public class ScoreManager : MonoBehaviour
         return PlayerPrefs.GetInt("highscore", 0);
     }
     #endregion
+    
+    public int getScore()
+    { 
+        return score;
+    }
 }
