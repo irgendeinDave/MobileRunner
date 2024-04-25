@@ -26,12 +26,20 @@ public class CoinManager : MonoBehaviour
         coinCounterText.text = coinsCollected.ToString();
     }
 
+    
     public static void AddCoinsToTotal()
     {
         int score = GameObject.FindWithTag("Player").GetComponent<ScoreManager>().getScore();
         Debug.Log("Score: " + score);
         int current = PlayerPrefs.GetInt("coins", 0);
-        PlayerPrefs.SetInt("coins", current + Mathf.FloorToInt(.002f * coinsCollected * score * score)); // add (score²)/500 * collected coins in the round to the balance
+        PlayerPrefs.SetInt("coins", current + CoinsEarned()); // add coin reward of the round to the balance
         Debug.Log("Coins: " + PlayerPrefs.GetInt("coins"));
+    }
+
+    public static int CoinsEarned()
+    {
+        int score = GameObject.FindWithTag("Player").GetComponent<ScoreManager>().getScore();
+        Debug.Log(Mathf.FloorToInt(.002f * coinsCollected * score * score));
+        return Mathf.FloorToInt(.002f * coinsCollected * score * score); // (score²)/500 * collected coins
     }
 }

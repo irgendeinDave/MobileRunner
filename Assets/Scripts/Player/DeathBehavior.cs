@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Advertisements;
@@ -10,6 +11,7 @@ public class DeathBehavior : MonoBehaviour, IUnityAdsInitializationListener, IUn
     private GameObject collisionObject;
 
     [SerializeField] private int AllowedAdRequests = 3;
+    [SerializeField] private TMP_Text CoinRewardUI;
 
     private void Start()
     {
@@ -45,6 +47,7 @@ public class DeathBehavior : MonoBehaviour, IUnityAdsInitializationListener, IUn
         else
             findChildOfPopup("Watch Ad Button").SetActive(false);
 
+        CoinRewardUI.text = $"earn {CoinManager.CoinsEarned()}";
     }
 
     public void replayButton()
