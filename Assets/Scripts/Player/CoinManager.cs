@@ -29,8 +29,6 @@ public class CoinManager : MonoBehaviour
     
     public static void AddCoinsToTotal()
     {
-        int score = GameObject.FindWithTag("Player").GetComponent<ScoreManager>().getScore();
-        Debug.Log("Score: " + score);
         int current = PlayerPrefs.GetInt("coins", 0);
         PlayerPrefs.SetInt("coins", current + CoinsEarned()); // add coin reward of the round to the balance
         Debug.Log("Coins: " + PlayerPrefs.GetInt("coins"));
