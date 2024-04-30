@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float startingMovementSpeed;
+    [SerializeField] private float verticalSpeed = 1f;
     private float movementSpeed;
     [SerializeField] private float roationSpeed;
 
@@ -20,28 +21,17 @@ public class PlayerMovement : MonoBehaviour
         rb.gravityScale = 0; //deactivate gravity
     }
 
+    private Vector3 newPosition;
     void FixedUpdate()
     {
-        //old system
-        float newY = transform.position.y;
         movementSpeed = startingMovementSpeed + (transform.position.x / 100) * Time.fixedDeltaTime;
-
         if (Input.touchCount > 0)
         {
             Touch t = Input.GetTouch(0);
-            newY = Camera.main.ScreenToWorldPoint(new Vector3(t.position.x, t.position.y, 0)).y;
+            float yDestination = Camera.main.ScreenToWorldPoint(new Vector3(t.position.x, t.position.y, 0)).y;
+            newPosition = transform.position + new Vector3(0, (yDestination - transform.position.y) * Time.deltaTime * verticalSpeed, 0);
         }
-        rb.MovePosition(new Vector2(transform.position.x + movementSpeed * Time.deltaTime, newY));
-
-        //movementSpeed = startingMovementSpeed + (transform.position.x / 100);
-        //if (Input.touchCount > 0)
-        //{
-        //    Touch t = Input.GetTouch(0);
-        //    Debug.Log(Camera.main.ScreenToWorldPoint(t.position));
-        //    Vector3 worldPoint = Camera.main.ScreenToWorldPoint(t.position);
-        //    Vector3 angle = worldPoint - transform.position;
-
-        //} 
+        rb.MovePosition(newPosition);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
