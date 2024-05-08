@@ -799,6 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingMovementSpeed: 10
+  verticalSpeed: 2.25
   roationSpeed: 0
   startingElevation: 5
 --- !u!114 &950931072
