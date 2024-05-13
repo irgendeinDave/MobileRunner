@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Touch t = Input.GetTouch(0);
             float yDestination = Camera.main.ScreenToWorldPoint(new Vector3(t.position.x, t.position.y, 0)).y;
-            newPosition = transform.position + new Vector3( movementSpeed * Time.fixedDeltaTime * Time.fixedDeltaTime,
+            newPosition = transform.position + new Vector3( movementSpeed * Time.fixedDeltaTime,
                                                             (yDestination - transform.position.y) * Time.deltaTime * verticalSpeed, 
                                                             0);
         }
@@ -37,8 +37,6 @@ public class PlayerMovement : MonoBehaviour
         {
             newPosition = new Vector3(transform.position.x + movementSpeed * Time.fixedDeltaTime, transform.position.y, 0);
         }
-        Debug.Log("x speed" + movementSpeed);
-
         rb.MovePosition(newPosition);
     }
 
