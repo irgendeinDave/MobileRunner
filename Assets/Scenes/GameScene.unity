@@ -800,7 +800,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingMovementSpeed: 10
   verticalSpeed: 2.25
-  roationSpeed: 0
+  rotationSpeed: 10
   startingElevation: 5
 --- !u!114 &950931072
 MonoBehaviour:
