@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float startingMovementSpeed;
     [SerializeField] private float verticalSpeed = 1f;
     private float movementSpeed;
-    [SerializeField] private float roationSpeed;
+    [SerializeField] private float rotationSpeed;
 
     [SerializeField] private float startingElevation;
     private Rigidbody2D rb;
@@ -32,12 +32,19 @@ public class PlayerMovement : MonoBehaviour
             newPosition = transform.position + new Vector3( movementSpeed * Time.fixedDeltaTime,
                                                             (yDestination - transform.position.y) * Time.deltaTime * verticalSpeed, 
                                                             0);
+
+            Vector2 direction = (Vector2)Camera.main.ScreenToWorldPoint(t.position) - rb.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+            float rotation = Mathf.LerpAngle(rb.rotation, angle, rotationSpeed * Time.fixedDeltaTime);
+            rb.MoveRotation(rotation);
         }
         else
         {
             newPosition = new Vector3(transform.position.x + movementSpeed * Time.fixedDeltaTime, transform.position.y, 0);
+            rb.SetRotation(-90);
         }
         rb.MovePosition(newPosition);
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
